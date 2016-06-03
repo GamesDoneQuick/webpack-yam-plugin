@@ -58,6 +58,9 @@ WebpackYAMPlugin.prototype.apply = function(compiler) {
         status: 'built',
         files: transform(stats.compilation.chunks, (files, chunk) => {
           files[chunk.name] = chunk.files.map(file => {
+            if (outputPath === '/') {
+              return file;
+            }
             const absPath = path.join(outputPath, file);
             const relPath = absPath.slice(outputRoot.length);
             if (relPath[0] == path.sep) {
